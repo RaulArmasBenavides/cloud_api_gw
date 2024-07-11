@@ -1,0 +1,22 @@
+# Ignorar los archivos y directorios de compilación
+target/
+build/
+
+# Ignorar configuraciones de IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.code-workspace
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de control de versiones
+.git/
+.gitignore
+
+# Ignorar archivos de configuración específicos del sistema
+settings.xml
