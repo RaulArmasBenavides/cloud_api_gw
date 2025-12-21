@@ -10,3 +10,7 @@ http://localhost:8080/actuator/health
 
 docker build -t cloud-gateway .
 docker run -d -p 8080:8080 --name cloud-gateway cloud-gateway
+
+
+
+docker run -d --name redis-gateway -p 6379:6379 redis:7-alpine

@@ -12,10 +12,11 @@ public class SecurityConfig {
   SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
     http.csrf(csrf -> csrf.disable());
     http.authorizeExchange(ex -> ex
+        .pathMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
         .pathMatchers("/api/v2/login", "/api/v2/renewToken", "/api/v2/logout", "/api/v2/register").permitAll()
-        .anyExchange().authenticated()
-    );
-    http.oauth2ResourceServer(o -> o.jwt()); // valida Authorization: Bearer ...
+        .anyExchange().authenticated());
+     
+     http.oauth2ResourceServer(o -> o.jwt()); // valida Authorization: Bearer ...
     return http.build();
   }
 }

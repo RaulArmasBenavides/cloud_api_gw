@@ -12,24 +12,11 @@ import io.jsonwebtoken.io.Decoders;
 
 @Configuration
 public class JwtDecoderConfig {
-  // @Bean
-  // public org.springframework.security.oauth2.jwt.ReactiveJwtDecoder jwtDecoder(
-  // @Value("${security.jwt.secret}") String secret) {
-  // var key = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
-  // return NimbusReactiveJwtDecoder.withSecretKey(key).build();
-  // }
-
-  // @Bean
-  // ReactiveJwtDecoder jwtDecoder2(@Value("${security.jwt.secret}") String b64) {
-  //   byte[] key = Decoders.BASE64.decode(b64);
-  //   return NimbusReactiveJwtDecoder.withSecretKey(new javax.crypto.spec.SecretKeySpec(key, "HmacSHA256")).build();
-  // }
 
   @Bean
-  ReactiveJwtDecoder jwtDecoder(@Value("${security.jwt.secret}") String secretB64) {
-    byte[] key = java.util.Base64.getDecoder().decode(secretB64.trim());
-    return NimbusReactiveJwtDecoder
-        .withSecretKey(new javax.crypto.spec.SecretKeySpec(key, "HmacSHA256"))
-        .build();
+  public ReactiveJwtDecoder reactiveJwtDecoder(@Value("${security.jwt.secret}") String base64Secret) {
+    byte[] keyBytes = io.jsonwebtoken.io.Decoders.BASE64.decode(base64Secret);
+    var key = new SecretKeySpec(keyBytes, "HmacSHA256");
+    return NimbusReactiveJwtDecoder.withSecretKey(key).build();
   }
 }
